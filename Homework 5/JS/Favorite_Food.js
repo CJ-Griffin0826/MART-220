@@ -189,10 +189,9 @@ function draw() {
       animation[i].y = y
     }
 
-    for (let k = 0; k < foodArray.length; k++) {
-      if (animation[i].hasCollided(foodArray[k].x, foodArray[k].y, 25, 25)) {
-        foodArray.splice(k, 1);
-        k--;
+    for (let k = 0; k < foodArray.length; k++){
+      if(animation[i].hasCollided(foodArray[k].x, foodArray[k].y, 25, 25)){
+        foodArray.splice(k, 1)
       }
     }
   
