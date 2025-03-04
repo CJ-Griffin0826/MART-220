@@ -34,8 +34,12 @@ let myFont;
 var timerValue = 20
 var startButton;
 
+//Score
+var Score = 0
+
 // Boy
 var myBoy
+var myBoy1
 var animation = []
 var runAnimation = []
 var i = 0
@@ -55,6 +59,7 @@ var runStrings = []
 
 var x = 230
 var y = 140
+var flipX = false
 
 //Loading Everything
 
@@ -65,14 +70,9 @@ function preload(){
   myFont = loadFont('Fonts/NewRocker-Regular.ttf')
   setInterval(timeIt, 1000)
 
-  idleStrings = loadStrings('../data/Idle.txt')
-  runStringsStrings = loadStrings('../data/Run.txt')
+  idleStrings = loadStrings('data/idle.txt')
+  runStrings = loadStrings('data/run.txt')
 
-  for (var i = 0; i < 10; i++) {
-    // concatenation - adding strings together
-    myBoy = new character(idleStrings[i], x, y);
-    animation.push(myBoy);
-  } 
 }
 
 function setup() {
@@ -83,6 +83,14 @@ function setup() {
     foodArray.push(mySoup);
   }
 
+  for(let i = 0; i < idleStrings.length; i++){
+    myBoy = new character(idleStrings[i], x, y)
+    animation.push(myBoy)
+
+    myBoy = new character(runStrings[i], x, y)
+    runAnimation.push(myBoy)
+  }
+
   //Animation Timer
   setInterval(incrementIdleIndex, 70)
 }
@@ -91,11 +99,12 @@ function draw() {
   background(220);
 
   //Timer
+  textAlign(LEFT, TOP)
   if (timerValue >= 10) {
-    text("0:" + timerValue, 10, 30);
+    text("0:" + timerValue, 10, 10);
   }
   if (timerValue < 10) {
-    text('0:0' + timerValue, 10, 30);
+    text('0:0' + timerValue, 10, 10);
   }
   if (timerValue == 0){
     Es -= 2
@@ -125,6 +134,10 @@ function draw() {
   textAlign(LEFT, BOTTOM)
   textFont(myFont)
   text("CJ Griffin", 10, height - 10)
+
+  textAlign(RIGHT, BOTTOM)
+  textFont(myFont)
+  text("Score:" + Score, width - 10, height - 10)
 
   //Cheese
   
@@ -191,14 +204,22 @@ function draw() {
       y++;
     }
   
-    for (let i = 0; i < 10; i++){
+    for (let i = 0; i < idleStrings.length; i++){
+      animation[i].flipX = flipX
       animation[i].x = x
       animation[i].y = y
+      runAnimation[i].flipX = flipX
+      runAnimation[i].x = x
+      runAnimation[i].y = y
     }
 
     for (let k = 0; k < foodArray.length; k++){
       if(animation[i].hasCollided(foodArray[k].x, foodArray[k].y, 10, 10)){
         foodArray.splice(k, 1)
+        Score ++
+      }
+      else if(timerValue <= 0){
+        foodArray.splice(k, 5)
       }
     }
   
@@ -226,7 +247,7 @@ function incrementIdleIndex(){
 
 function updateIndex() {
   i++;
-  if (i > 9) {
+  if (i > idleStrings.length-1) {
       i = 0;
   }
 

@@ -9,7 +9,6 @@ class Soup{
     
     }
 
-
     draw(){
         
         fill(255,255,255);

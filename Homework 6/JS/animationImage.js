@@ -17,10 +17,10 @@ class character{
         if (this.flipX){
             translate(this.imageWidth, 0)
             scale(-1.0, 1.0)
-            image(this.myBoy, -this.x, this.y, 150, 200)   
+            image(this.myImage, -this.x, this.y, 150, 200)   
         }
         else{
-            image(this.myBoy, this.x, this.y, 150, 200)
+            image(this.myImage, this.x, this.y, 150, 200)
         }
         pop()
     }
