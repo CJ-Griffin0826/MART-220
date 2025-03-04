@@ -35,10 +35,9 @@ var timerValue = 20
 var startButton;
 
 // Boy
-
-var myImage
-var myAnimation
+var myBoy
 var animation = []
+var runAnimation = []
 var i = 0
 
 //Setting up Soup
@@ -63,8 +62,8 @@ function preload(){
 
   for (var i = 0; i < 10; i++) {
     // concatenation - adding strings together
-    myCharacter = new character("Images/Idle_00" + i + ".png", x, y);
-    animation.push(myCharacter);
+    myBoy = new character("Images/Idle_00" + i + ".png", x, y);
+    animation.push(myBoy);
   } 
 }
 
@@ -166,7 +165,7 @@ function draw() {
 
   //Boy
 
-  animation[i].drawBoy()
+  animation[i].draw()
 
   //Movement
 

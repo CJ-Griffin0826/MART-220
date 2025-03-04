@@ -13,10 +13,10 @@ class Soup{
     draw(){
         
         fill(255,255,255);
-        circle(this.x,this.y,80);
+        circle(this.x,this.y,50);
         
         fill(200,0,0);
-        circle(this.x,this.y,40);
+        circle(this.x,this.y,30);
     
     }
 

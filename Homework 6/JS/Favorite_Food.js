@@ -35,10 +35,9 @@ var timerValue = 20
 var startButton;
 
 // Boy
-
-var myImage
-var myAnimation
+var myBoy
 var animation = []
+var runAnimation = []
 var i = 0
 
 //Setting up Soup
@@ -63,8 +62,8 @@ function preload(){
 
   for (var i = 0; i < 10; i++) {
     // concatenation - adding strings together
-    myCharacter = new character("Images/Idle_00" + i + ".png", x, y);
-    animation.push(myCharacter);
+    myBoy = new character("Images/Idle_00" + i + ".png", x, y);
+    animation.push(myBoy);
   } 
 }
 
@@ -72,7 +71,7 @@ function setup() {
   createCanvas(600, 400);
   
   for(let i = 0; i < 5; i++){
-    mySoup = new Soup(random(100, 400), random(100, 400), 10);
+    mySoup = new Soup(random(100, 600), random(100, 400), 10);
     foodArray.push(mySoup);
   }
 
@@ -166,7 +165,7 @@ function draw() {
 
   //Boy
 
-  animation[i].drawBoy()
+  animation[i].draw()
 
   //Movement
 
@@ -190,7 +189,7 @@ function draw() {
     }
 
     for (let k = 0; k < foodArray.length; k++){
-      if(animation[i].hasCollided(foodArray[k].x, foodArray[k].y, 25, 25)){
+      if(animation[i].hasCollided(foodArray[k].x, foodArray[k].y, 10, 10)){
         foodArray.splice(k, 1)
       }
     }
