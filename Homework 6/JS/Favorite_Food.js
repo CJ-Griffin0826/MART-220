@@ -46,6 +46,11 @@ var mySoup
 var foodArray = []
 var foodFound = false
 
+//Setting up Strings
+
+var idleStrings = []
+var runStrings = []
+
 // Setting up movement
 
 var x = 230
@@ -60,9 +65,12 @@ function preload(){
   myFont = loadFont('Fonts/NewRocker-Regular.ttf')
   setInterval(timeIt, 1000)
 
+  idleStrings = loadStrings('../data/Idle.txt')
+  runStringsStrings = loadStrings('../data/Run.txt')
+
   for (var i = 0; i < 10; i++) {
     // concatenation - adding strings together
-    myBoy = new character("Images/Idle_00" + i + ".png", x, y);
+    myBoy = new character(idleStrings[i], x, y);
     animation.push(myBoy);
   } 
 }
