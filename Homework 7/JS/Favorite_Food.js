@@ -43,12 +43,22 @@ var myBoy1
 var animation = []
 var runAnimation = []
 var i = 0
+var animS = []
 
 //Setting up Soup
 
 var mySoup
 var foodArray = []
 var foodFound = false
+var myBadSoup
+var foodArray2 = []
+var badFoodFound = false
+
+//Setting up Sounds
+
+var goodSoupSound
+var badSoupSound
+var backgroundMusic
 
 //Setting up Strings
 
@@ -78,16 +88,24 @@ function preload(){
   idleStrings = loadStrings("data/idle.txt")
   runStrings = loadStrings("data/run.txt")
 
+  backgroundMusic = loadSound("Sounds/Sunrise&OnettTheme.mp3")
+  goodSoupSound = loadSound("Sounds/yippee.mp3")
+  badSoupSound = loadSound("Sounds/boowomp.mp3")
+
 }
 
 function setup() {
   createCanvas(600, 400);
+
+  backgroundMusic.play()
 
   setupBoy()
 
   setupAnimationTimer()
 
   setupSoup()
+
+  setupBadSoup()
 
 }
 
@@ -104,7 +122,9 @@ function draw() {
 
   makeGoodSoup()
 
-  makeBoyMove()
+  makeBadSoup()
+
+  makeBoyMoveAndCollision()
 
 }
 
@@ -166,7 +186,13 @@ function makeGoodSoup(){
   }
 }
 
-function makeBoyMove(){
+function makeBadSoup(){
+  for(let i = 0; i < foodArray2.length; i++){
+    foodArray2[i].draw()
+  }
+}
+
+function makeBoyMoveAndCollision(){
   if (keyIsPressed){
     runAnimation[i].draw()
     if (key == "a"){
@@ -197,9 +223,21 @@ function makeBoyMove(){
       if(animation[i].hasCollided(foodArray[k].x, foodArray[k].y, 10, 10)){
         foodArray.splice(k, 1)
         Score ++
+        goodSoupSound.play()
       }
       else if(timerValue <= 0){
         foodArray.splice(k, 5)
+      }
+    }
+    
+    for (let k = 0; k < foodArray2.length; k++){
+      if(animation[i].hasCollided(foodArray2[k].x, foodArray2[k].y, 10, 10)){
+        foodArray2.splice(k, 1)
+        Score --
+        badSoupSound.play()
+      }
+      else if(timerValue <= 0){
+        foodArray2.splice(k, 5)
       }
     }
   
@@ -211,6 +249,7 @@ function makeBoyMove(){
 
 function makeText(){
   textSize(20);
+  fill(0, 0, 0)
   textAlign(RIGHT, TOP)
   textFont(myFont)
   text("Grill The Cheese! (Press c)", width - 10, 10)
@@ -238,6 +277,7 @@ function makeImages(){
 }
 
 function makeTimer(){
+  fill(0, 0, 0)
   textAlign(LEFT, TOP)
   if (timerValue >= 10) {
     text("0:" + timerValue, 10, 10);
@@ -262,6 +302,13 @@ function setupSoup(){
   for(let i = 0; i < 5; i++){
     mySoup = new Soup(random(100, 600), random(100, 400), 10);
     foodArray.push(mySoup);
+  }
+}
+
+function setupBadSoup(){
+  for(let i = 0; i < 5 ; i++){
+    myBadSoup = new badSoup(random(100,600), random(100,400), 10)
+    foodArray2.push(myBadSoup)
   }
 }
 
