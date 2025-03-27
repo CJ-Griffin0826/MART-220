@@ -97,9 +97,9 @@ function preload(){
 function setup() {
   createCanvas(600, 400);
 
-  backgroundMusic.play()
-
   setupBoy()
+
+  backgroundMusic.play()
 
   setupAnimationTimer()
 
@@ -110,6 +110,7 @@ function setup() {
 }
 
 function draw() {
+
   background(220);
 
   makeTimer()
