@@ -1,11 +1,9 @@
 //Character
 var idlePaths = []
-var myAnimation
 var myRunAnimation
 var runPaths = []
 
 //Obsticals / Collectables
-var grilledCheese
 var brickWall
 var goodCheese = []
 var bussle
@@ -14,6 +12,8 @@ var badFood = []
 //Score
 var score = 0
 var i = 0
+
+let myAnimation, grilledCheeses
 
 function preload(){
     //loading images
@@ -36,6 +36,8 @@ function setup(){
 
     Borders()
 
+    myAnimation.isColliding(grilledCheeses, collect)
+
 }
 
 function draw(){
@@ -46,8 +48,6 @@ function draw(){
     text("Score:" + score, 15, 15)
 
     boyMovementCollision()
-
-    grilledCheese.debug = mouseIsPressed
     
 }
 
@@ -55,8 +55,6 @@ function boyMovementCollision(){
     if(kb.pressing('d')){
         myAnimation.updatePosition('forward')
         myAnimation.drawAnimation('run')
-
-        myAnimation.isColliding(grilledCheese, collect)
 
         //colliding with Brick Wall
         if(myAnimation.isColliding(brickWall)){
@@ -79,7 +77,18 @@ function boyMovementCollision(){
     else{
         myAnimation.drawAnimation('idle')
     }
+/**    if(myAnimation.isColliding(grilledCheeses)){
+        grilledCheeses.remove()
+        score++
+    }
+*/
+}
 
+function GCollect(){
+    if(myAnimation.isColliding(grilledCheeses)){
+        grilledCheeses.remove()
+        score++
+    }
 }
 
 function Borders(){
@@ -117,17 +126,14 @@ function Borders(){
 }
 
 function GC(){
-
-    for(let i = 0; i <= 5; i++){
-        grilledCheese = new Group()
-        grilledCheese.img = "Images/GrilledCheese.png"
-        grilledCheese.scale = .2
-        grilledCheese.width = 270
-        grilledCheese.height = 210
-        grilledCheese.x = random(15, canvas.w - 15)
-        grilledCheese.y = random(15, canvas.h - 15)
-        grilledCheese.amount = 1
-    }
+    grilledCheeses = new Group()
+    grilledCheeses.img = "Images/GrilledCheese.png"
+    grilledCheeses.scale = .2
+    grilledCheeses.width = 270
+    grilledCheeses.height = 210
+    grilledCheeses.x = () => random(15, canvas.w - 15)
+    grilledCheeses.y = () => random(15, canvas.h - 15)
+    grilledCheeses.amount = 2
 }
 
 function BadFood(){
@@ -142,7 +148,7 @@ function BadFood(){
     }
 }
 
-function collect(myAnimation, grilledCheese){
-    grilledCheese.remove()
+function collect(){
+    grilledCheeses.remove()
     score++
 }
