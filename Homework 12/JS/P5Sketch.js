@@ -1,5 +1,6 @@
 var shape1, shape2, shape3, shape4, shape5
 var img1, img2, img3, img4, img5
+var font
 
 function preload(){
     
@@ -8,6 +9,8 @@ function preload(){
     img3 = loadImage("Images/Guy.webp")
     img4 = loadImage("Images/Bingus.webp")
     img5 = loadImage("Images/Loaf_Cat.png")
+
+    font = loadFont('Fonts/NewRocker-Regular.ttf')
 
 }
 
@@ -32,8 +35,28 @@ function draw(){
     shape4.draw()
     shape5.draw()
 
-    textSize(100);
-    textAlign(LEFT, TOP)
-    text("Cool Shapes", width/2, height/2)
+    push()
+
+    rotateX(frameCount * -.1)
+    rotateY(frameCount * .1)
+    rotateZ(frameCount * .2)
+    fill('#ED225D')
+    textFont(font)
+    textSize(36)
+    text("Cool Pictures I Found", -350, -350)
+
+    pop()
+
+    push()
+
+    rotateX(frameCount * -.2)
+    rotateY(frameCount * -.2)
+    rotateZ(frameCount * -.1)
+    fill('#ED225D')
+    textFont(font)
+    textSize(36)
+    text("CJ Griffin", -350, 350)
+
+    pop()
 
 }
